@@ -40,7 +40,6 @@ How to use
 	  --linestyle=STYLE     line style
 	  --hatch=HATCH         hatch
 	  --dpi=DPI             dots/inch for output image
-	  --frameon             figure frame for output image
 
 Sample
 ------

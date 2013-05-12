@@ -24,7 +24,7 @@ def optdict(options, keys):
     return dict((k,getattr(options,k)) for k in keys if getattr(options,k)!=None)
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version="0.02")
+    parser = optparse.OptionParser(version="0.03")
  
     parser.add_option("-i", dest="input_file", action='store',
                     metavar='FILE', help="input image file (required)")
@@ -55,7 +55,6 @@ if __name__ == '__main__':
     parser.add_option("--linestyle", dest="linestyle", metavar='STYLE',action='store', help="line style")
     parser.add_option("--hatch", dest="hatch", metavar='HATCH', action='store', help="hatch")
     parser.add_option("--dpi", dest="dpi", action='store', metavar='DPI', type=float, help="dots/inch for output image")
-    parser.add_option("--frameon", dest="frameon", action='store_true', default=False, help="figure frame for output image")
 
     (options, args) = parser.parse_args()
 
@@ -97,8 +96,8 @@ if __name__ == '__main__':
             pts = []
             for row in csv.reader(f, delimiter=options.delimiter):
                 pts += map(float, row)
-            ax.plot(pts[0::2]+[pts[0]], pts[1::2]+[pts[1]], **optdict(options,
-                    ['color', 'alpha', 'marker', 'markersize', 'markerfacecolor', 'markeredgecolor', 'markeredgewidth', 'linewidth', 'linestyle']))
+            ax.add_artist(plt.Line2D(pts[0::2]+[pts[0]], pts[1::2]+[pts[1]], **optdict(options,
+                    ['color', 'alpha', 'marker', 'markersize', 'markerfacecolor', 'markeredgecolor', 'markeredgewidth', 'linewidth', 'linestyle'])))
 
     if options.plot_lines:
         with open(options.plot_lines) as f:
@@ -122,6 +121,6 @@ if __name__ == '__main__':
                               ['color', 'alpha', 'fill', 'facecolor', 'edgecolor', 'linewidth', 'linestyle', 'hatch'])))
 
     if options.output_file:
-        plt.savefig(options.output_file, dpi=options.dpi, frameon=options.frameon, transparent=True)
+        plt.savefig(options.output_file, dpi=options.dpi, transparent=True)
     else:
         plt.show()
