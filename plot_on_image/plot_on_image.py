@@ -24,7 +24,7 @@ def optdict(options, keys):
     return dict((k,getattr(options,k)) for k in keys if getattr(options,k)!=None)
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(version="0.01")
+    parser = optparse.OptionParser(version="0.02")
  
     parser.add_option("-i", dest="input_file", action='store',
                     metavar='FILE', help="input image file (required)")
@@ -40,19 +40,22 @@ if __name__ == '__main__':
                     metavar='FILE', help="circle data CSV file [(x,y,r)]")
     parser.add_option("--plot-polygons", dest="plot_polygons", action='store',
                     metavar='FILE',  help="polygon data CSV file [[(x,y)]]")
-    parser.add_option("--delimiter", dest="delimiter", action='store', default=',', help="CSV delimiter (default=comma)")
+    parser.add_option("--delimiter", dest="delimiter", action='store', metavar='CHAR', default=',', help="CSV delimiter (default=comma)")
     parser.add_option("--fill", dest="fill", action='store_true', default=False, help="fill (default=false)")
-    parser.add_option("--alpha", dest="alpha", action='store', help="alpha")
-    parser.add_option("--color", dest="color", action='store', help="color")
-    parser.add_option("--facecolor", dest="facecolor", action='store', help="face color")
-    parser.add_option("--edgecolor", dest="edgecolor", action='store', help="edge color")
-    parser.add_option("--marker", dest="marker", action='store', help="marker")
-    parser.add_option("--markersize", dest="markersize", action='store', help="marker size")
-    parser.add_option("--markerfacecolor", dest="markerfacecolor", action='store', help="marker face color")
-    parser.add_option("--markeredgecolor", dest="markeredgecolor", action='store', help="marker edge color")
-    parser.add_option("--markeredgewidth", dest="markeredgewidth", action='store', help="marker edge width")
-    parser.add_option("--linewidth", dest="linewidth", action='store', help="line width")
-    parser.add_option("--linestyle", dest="linestyle", action='store', help="line style")
+    parser.add_option("--alpha", dest="alpha", metavar='FLOAT', action='store', help="alpha")
+    parser.add_option("--color", dest="color", metavar='CHAR', action='store', help="color")
+    parser.add_option("--facecolor", dest="facecolor", metavar='COLOR', action='store', help="face color")
+    parser.add_option("--edgecolor", dest="edgecolor", metavar='COLOR', action='store', help="edge color")
+    parser.add_option("--marker", dest="marker", metavar='MARKER', action='store', help="marker")
+    parser.add_option("--markersize", dest="markersize", metavar='FLOAT', action='store', help="marker size")
+    parser.add_option("--markerfacecolor", dest="markerfacecolor", metavar='COLOR', action='store', help="marker face color")
+    parser.add_option("--markeredgecolor", dest="markeredgecolor", metavar='COLOR', action='store', help="marker edge color")
+    parser.add_option("--markeredgewidth", dest="markeredgewidth", metavar='FLOAT', action='store', help="marker edge width")
+    parser.add_option("--linewidth", dest="linewidth", metavar='FLOAT', action='store', help="line width")
+    parser.add_option("--linestyle", dest="linestyle", metavar='STYLE',action='store', help="line style")
+    parser.add_option("--hatch", dest="hatch", metavar='HATCH', action='store', help="hatch")
+    parser.add_option("--dpi", dest="dpi", action='store', metavar='DPI', help="dots per inch")
+    parser.add_option("--frameon", dest="frameon", action='store_true', default=False, help="figure frame")
 
     (options, args) = parser.parse_args()
 
@@ -109,16 +112,16 @@ if __name__ == '__main__':
             for row in csv.reader(f, delimiter=options.delimiter):
                 x, y, r = map(float, row)
                 ax.add_artist(plt.Circle((x,y), r, **optdict(options,
-                              ['color', 'alpha', 'fill', 'facecolor', 'edgecolor', 'linewidth', 'linestyle'])))
+                              ['color', 'alpha', 'fill', 'facecolor', 'edgecolor', 'linewidth', 'linestyle', 'hatch'])))
 
     if options.plot_polygons:
         with open(options.plot_polygons) as f:
             for row in csv.reader(f, delimiter=options.delimiter):
                 pts = map(float, row)
                 ax.add_artist(plt.Polygon(zip(pts[0::2],pts[1::2]), **optdict(options,
-                              ['color', 'alpha', 'fill', 'facecolor', 'edgecolor', 'linewidth', 'linestyle'])))
+                              ['color', 'alpha', 'fill', 'facecolor', 'edgecolor', 'linewidth', 'linestyle', 'hatch'])))
 
     if options.output_file:
-        plt.savefig(options.output_file, transparent=True)
+        plt.savefig(options.output_file, dpi=options.dpi, frameon=options.frameon, transparent=True)
     else:
         plt.show()

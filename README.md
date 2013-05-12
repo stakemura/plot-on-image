@@ -38,6 +38,9 @@ How to use
 	                        marker edge width
 	  --linewidth=FLOAT     line width
 	  --linestyle=STYLE     line style
+	  --hatch=HATCH         hatch
+	  --dpi=DPI             dots per inch
+	  --frameon             figure frame
 
 Sample
 ------
