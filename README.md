@@ -18,7 +18,7 @@ How to use
 	  -i FILE               input image file (required)
 	  -o FILE               output image file (optional)
 	  --plot-points=FILE    points data file [(x,y)]
-	  --plot-circuit=FILE   closed path data file [(x,y)]
+	  --plot-cycle=FILE     closed path data file [(x,y)]
 	  --plot-lines=FILE     lines data file [[(x,y)]]
 	  --plot-circles=FILE   circles data file [(x,y,r)]
 	  --plot-polygons=FILE  polygons data file [[(x,y)]]

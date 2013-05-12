@@ -32,7 +32,7 @@ if __name__ == '__main__':
                     metavar='FILE', help="output image file (optional)")
     parser.add_option("--plot-points", dest="plot_points", action='store',
                     metavar='FILE', help="points data file [(x,y)]")
-    parser.add_option("--plot-circuit", dest="plot_circuit", action='store',
+    parser.add_option("--plot-cycle", dest="plot_cycle", action='store',
                     metavar='FILE', help="closed path data file [(x,y)]")
     parser.add_option("--plot-lines", dest="plot_lines", action='store',
                     metavar='FILE', help="lines data file [[(x,y)]]")
@@ -42,19 +42,19 @@ if __name__ == '__main__':
                     metavar='FILE',  help="polygons data file [[(x,y)]]")
     parser.add_option("--delimiter", dest="delimiter", action='store', metavar='CHAR', default=',', help="CSV delimiter (default=comma)")
     parser.add_option("--fill", dest="fill", action='store_true', default=False, help="fill (default=false)")
-    parser.add_option("--alpha", dest="alpha", metavar='FLOAT', action='store', help="alpha")
+    parser.add_option("--alpha", dest="alpha", metavar='FLOAT', type=float, action='store', help="alpha")
     parser.add_option("--color", dest="color", metavar='CHAR', action='store', help="color")
     parser.add_option("--facecolor", dest="facecolor", metavar='COLOR', action='store', help="face color")
     parser.add_option("--edgecolor", dest="edgecolor", metavar='COLOR', action='store', help="edge color")
     parser.add_option("--marker", dest="marker", metavar='MARKER', action='store', help="marker")
-    parser.add_option("--markersize", dest="markersize", metavar='FLOAT', action='store', help="marker size")
+    parser.add_option("--markersize", dest="markersize", metavar='FLOAT', type=float, action='store', help="marker size")
     parser.add_option("--markerfacecolor", dest="markerfacecolor", metavar='COLOR', action='store', help="marker face color")
     parser.add_option("--markeredgecolor", dest="markeredgecolor", metavar='COLOR', action='store', help="marker edge color")
-    parser.add_option("--markeredgewidth", dest="markeredgewidth", metavar='FLOAT', action='store', help="marker edge width")
-    parser.add_option("--linewidth", dest="linewidth", metavar='FLOAT', action='store', help="line width")
+    parser.add_option("--markeredgewidth", dest="markeredgewidth", metavar='FLOAT', type=float, action='store', help="marker edge width")
+    parser.add_option("--linewidth", dest="linewidth", metavar='FLOAT', type=float, action='store', help="line width")
     parser.add_option("--linestyle", dest="linestyle", metavar='STYLE',action='store', help="line style")
     parser.add_option("--hatch", dest="hatch", metavar='HATCH', action='store', help="hatch")
-    parser.add_option("--dpi", dest="dpi", action='store', metavar='DPI', help="dots/inch for output image")
+    parser.add_option("--dpi", dest="dpi", action='store', metavar='DPI', type=float, help="dots/inch for output image")
     parser.add_option("--frameon", dest="frameon", action='store_true', default=False, help="figure frame for output image")
 
     (options, args) = parser.parse_args()
@@ -92,8 +92,8 @@ if __name__ == '__main__':
                 ax.plot([x],[y], **optdict(options,
                         ['color', 'alpha', 'marker', 'markersize', 'markerfacecolor', 'markeredgecolor', 'markeredgewidth']))
 
-    if options.plot_circuit:
-        with open(options.plot_circuit) as f:
+    if options.plot_cycle:
+        with open(options.plot_cycle) as f:
             pts = []
             for row in csv.reader(f, delimiter=options.delimiter):
                 pts += map(float, row)
