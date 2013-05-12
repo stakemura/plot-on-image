@@ -17,11 +17,11 @@ How to use
 	  -h, --help            show this help message and exit
 	  -i FILE               input image file (required)
 	  -o FILE               output image file (optional)
-	  --plot-points=FILE    point data CSV file [(x,y)]
-	  --plot-contour=FILE   contour data CSV file [(x,y)]
-	  --plot-lines=FILE     line data CSV file [[(x,y)]]
-	  --plot-circles=FILE   circle data CSV file [(x,y,r)]
-	  --plot-polygons=FILE  polygon data CSV file [[(x,y)]]
+	  --plot-points=FILE    points data file [(x,y)]
+	  --plot-circuit=FILE   closed path data file [(x,y)]
+	  --plot-lines=FILE     lines data file [[(x,y)]]
+	  --plot-circles=FILE   circles data file [(x,y,r)]
+	  --plot-polygons=FILE  polygons data file [[(x,y)]]
 	  --delimiter=CHAR      CSV delimiter (default=comma)
 	  --fill                fill (default=false)
 	  --alpha=FLOAT         alpha
@@ -39,12 +39,12 @@ How to use
 	  --linewidth=FLOAT     line width
 	  --linestyle=STYLE     line style
 	  --hatch=HATCH         hatch
-	  --dpi=DPI             dots per inch
-	  --frameon             figure frame
+	  --dpi=DPI             dots/inch for output image
+	  --frameon             figure frame for output image
 
 Sample
 ------
-	python -i background.png --plot-contour contour.csv --marker=x --color=orange --linewidth=2 --markeredgecolor=red --markeredgewidth=1
+	python -i background.png --plot-points points.csv --marker=x --color=orange --linewidth=2 --markeredgecolor=red --markeredgewidth=1
 
 License
 ------

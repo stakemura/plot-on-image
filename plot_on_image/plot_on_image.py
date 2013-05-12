@@ -31,15 +31,15 @@ if __name__ == '__main__':
     parser.add_option("-o", dest="output_file", action='store',
                     metavar='FILE', help="output image file (optional)")
     parser.add_option("--plot-points", dest="plot_points", action='store',
-                    metavar='FILE', help="point data CSV file [(x,y)]")
-    parser.add_option("--plot-contour", dest="plot_contour", action='store',
-                    metavar='FILE', help="contour data CSV file [(x,y)]")
+                    metavar='FILE', help="points data file [(x,y)]")
+    parser.add_option("--plot-circuit", dest="plot_circuit", action='store',
+                    metavar='FILE', help="closed path data file [(x,y)]")
     parser.add_option("--plot-lines", dest="plot_lines", action='store',
-                    metavar='FILE', help="line data CSV file [[(x,y)]]")
+                    metavar='FILE', help="lines data file [[(x,y)]]")
     parser.add_option("--plot-circles", dest="plot_circles", action='store',
-                    metavar='FILE', help="circle data CSV file [(x,y,r)]")
+                    metavar='FILE', help="circles data file [(x,y,r)]")
     parser.add_option("--plot-polygons", dest="plot_polygons", action='store',
-                    metavar='FILE',  help="polygon data CSV file [[(x,y)]]")
+                    metavar='FILE',  help="polygons data file [[(x,y)]]")
     parser.add_option("--delimiter", dest="delimiter", action='store', metavar='CHAR', default=',', help="CSV delimiter (default=comma)")
     parser.add_option("--fill", dest="fill", action='store_true', default=False, help="fill (default=false)")
     parser.add_option("--alpha", dest="alpha", metavar='FLOAT', action='store', help="alpha")
@@ -54,8 +54,8 @@ if __name__ == '__main__':
     parser.add_option("--linewidth", dest="linewidth", metavar='FLOAT', action='store', help="line width")
     parser.add_option("--linestyle", dest="linestyle", metavar='STYLE',action='store', help="line style")
     parser.add_option("--hatch", dest="hatch", metavar='HATCH', action='store', help="hatch")
-    parser.add_option("--dpi", dest="dpi", action='store', metavar='DPI', help="dots per inch")
-    parser.add_option("--frameon", dest="frameon", action='store_true', default=False, help="figure frame")
+    parser.add_option("--dpi", dest="dpi", action='store', metavar='DPI', help="dots/inch for output image")
+    parser.add_option("--frameon", dest="frameon", action='store_true', default=False, help="figure frame for output image")
 
     (options, args) = parser.parse_args()
 
@@ -92,8 +92,8 @@ if __name__ == '__main__':
                 ax.plot([x],[y], **optdict(options,
                         ['color', 'alpha', 'marker', 'markersize', 'markerfacecolor', 'markeredgecolor', 'markeredgewidth']))
 
-    if options.plot_contour:
-        with open(options.plot_contour) as f:
+    if options.plot_circuit:
+        with open(options.plot_circuit) as f:
             pts = []
             for row in csv.reader(f, delimiter=options.delimiter):
                 pts += map(float, row)
